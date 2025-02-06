@@ -1,14 +1,27 @@
-<div class="register-container">
-    <h2>Inscription</h2>
+
+
+<div class="container d-flex justify-content-center mt-5">
+  <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+    <h2 class="text-center mb-4">Inscription</h2>
+    <p>Inscrivez-vous pour commander sur notre site</p>
     <form (submit)="register(); $event.preventDefault()">
-      <input type="text" [(ngModel)]="username" name="username" placeholder="Nom d'utilisateur" required>
-      <input type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required>
-      <select [(ngModel)]="role" name="role" required>
-        <option value="client" selected>Client</option>
-        <option value="admin">Admin</option>
-      </select>
-      <button type="submit">S'inscrire</button>
+      <div class="mb-3">
+        <input type="text" [(ngModel)]="username" name="username" class="form-control" placeholder="Nom d'utilisateur" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Mot de passe" required>
+      </div>
+      <div class="mb-3">
+        <select [(ngModel)]="role" name="role" class="form-select" required>
+          <option value="client" selected>Client</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-light">S'inscrire</button>
+      </div>
     </form>
-    <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+
+    <p *ngIf="errorMessage" class="text-danger text-center mt-3">{{ errorMessage }}</p>
   </div>
-  
+</div>

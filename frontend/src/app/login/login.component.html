@@ -1,21 +1,23 @@
-<div class="login-container">
-    <h2>Connexion</h2>
+<div class="container d-flex justify-content-center mt-5">
+  <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+    <h2 class="text-center mb-4">Connexion</h2>
+    <p>Connectez-vous pour commander sur notre site</p>
     <form (submit)="login(); $event.preventDefault()">
-      <input type="text" [(ngModel)]="username" name="username" placeholder="Nom d'utilisateur" required>
-      <input type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required>
-      <button type="submit">Se connecter</button>
+      <div class="mb-3">
+        <input type="text" [(ngModel)]="username" name="username" class="form-control" placeholder="Nom d'utilisateur" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Mot de passe" required>
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-light">Se connecter</button>
+      </div>
     </form>
 
-    <p style="position: relative; z-index: 9999;">
-        <a [routerLink]="['/register']" 
-           style="cursor: pointer; text-decoration: underline; color: blue; position: relative; z-index: 9999;">
-          Inscrivez-vous ici
-        </a>
-      </p>
-      
-      
-      
+    <p class="text-center mt-3">
+      <a [routerLink]="['/register']" class="btn btn-light">
+        Inscrivez-vous ici
+      </a>
+    </p>
   </div>
-
-
-  
+</div>

@@ -6,13 +6,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './app/login/login.component';
 import { ProductComponent } from './app/product/product.component';
 import { RegisterComponent } from './app/register/register.component';
+import { IndexComponent } from './app/index/index.component';
 import { AuthGuard } from './app/auth/auth-guard.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', component: IndexComponent },               // ✅ Page d'accueil par défaut
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'products', component: ProductComponent, canActivate: [AuthGuard] }  // ✅ Route protégée
+  { path: 'products', component: ProductComponent }
 ];
 
 bootstrapApplication(AppComponent, {
