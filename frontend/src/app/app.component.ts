@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import { ProductComponent } from './product/product.component';
-import { HttpClientModule } from '@angular/common/http';  // ✅ Import du module
+import { NavbarComponent } from './navbar/navbar.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ProductComponent, HttpClientModule],  // ✅ Ajout ici
+  imports: [RouterModule, NavbarComponent],  // ✅ Import de la Navbar
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'ecommerce-frontend';
-}
+export class AppComponent {}

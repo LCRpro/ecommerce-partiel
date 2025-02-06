@@ -1,0 +1,14 @@
+<div class="register-container">
+    <h2>Inscription</h2>
+    <form (submit)="register(); $event.preventDefault()">
+      <input type="text" [(ngModel)]="username" name="username" placeholder="Nom d'utilisateur" required>
+      <input type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required>
+      <select [(ngModel)]="role" name="role" required>
+        <option value="client" selected>Client</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button type="submit">S'inscrire</button>
+    </form>
+    <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+  </div>
+  

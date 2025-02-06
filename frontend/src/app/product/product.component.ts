@@ -21,7 +21,8 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts();
-  }
+    console.log('ProductComponent chargé ✅');  // ✅ Vérifie que le composant se charge
+    }
 
   loadProducts(): void {
     this.productService.getProducts().subscribe(data => this.products = data);

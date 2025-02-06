@@ -175,12 +175,23 @@
       margin-block: 1.5rem;
     }
   }
+
+  * {
+  pointer-events: auto !important;
+}
+
+body, html {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
 </style>
 
 <main class="main">
   <div class="content">
     <h1>Test Angular fonctionne ?</h1>
-    <app-product></app-product>
+    <app-navbar></app-navbar>  <!-- ✅ Navbar affichée sur toutes les pages -->
+    <router-outlet></router-outlet>
     
     
 </div>  

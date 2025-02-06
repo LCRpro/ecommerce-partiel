@@ -1,0 +1,21 @@
+<div class="login-container">
+    <h2>Connexion</h2>
+    <form (submit)="login(); $event.preventDefault()">
+      <input type="text" [(ngModel)]="username" name="username" placeholder="Nom d'utilisateur" required>
+      <input type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required>
+      <button type="submit">Se connecter</button>
+    </form>
+
+    <p style="position: relative; z-index: 9999;">
+        <a [routerLink]="['/register']" 
+           style="cursor: pointer; text-decoration: underline; color: blue; position: relative; z-index: 9999;">
+          Inscrivez-vous ici
+        </a>
+      </p>
+      
+      
+      
+  </div>
+
+
+  
