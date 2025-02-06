@@ -1,0 +1,22 @@
+<h2>Commandes des Clients</h2>
+
+<div *ngFor="let order of orders" class="order-card">
+  <h4>Commande #{{ order.id }}</h4>
+  <p>Client : {{ order.user.username }}</p>
+  <p>Statut actuel : {{ order.status }}</p>
+
+  <label for="status">Modifier le statut :</label>
+  <select [(ngModel)]="order.status" (change)="updateStatus(order.id, order.status)">
+    <option value="En cours">En cours</option>
+    <option value="Expédiée">Expédiée</option>
+    <option value="Annulée">Annulée</option>
+  </select>
+
+  <div *ngFor="let item of order.items">
+    <p>Produit : {{ item.product.name }} | Quantité : {{ item.quantity }}</p>
+  </div>
+
+  <hr>
+</div>
+
+<p *ngIf="!orders.length">Aucune commande disponible.</p>

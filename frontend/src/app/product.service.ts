@@ -3,13 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Product {
-  id?: number;
+  id?: number;            // ✅ Optionnel car il peut ne pas être défini lors de la création
   name: string;
   description: string;
   price: number;
   stock: number;
   imageUrl: string;
+  quantity?: number;       // ✅ Pour la gestion du panier
 }
+
 
 @Injectable({
   providedIn: 'root'

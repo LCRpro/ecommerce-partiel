@@ -18,14 +18,21 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/products">Produits</a>
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cart">Panier</a>
+        </li>
         <li class="nav-item" *ngIf="!isLoggedIn()">
           <a class="nav-link" routerLink="/login">Connexion</a>
         </li>
         <li class="nav-item" *ngIf="!isLoggedIn()">
           <a class="nav-link" routerLink="/register">Inscription</a>
         </li>
-
+        <li class="nav-item" *ngIf="isLoggedIn()" >
+        <a routerLink="/client-orders">Mes Commandes</a>
+      </li>
+        <li class="nav-item" *ngIf="!isLoggedIn()">
+        <a routerLink="/admin-orders" *ngIf="isAdmin()">Gestion des Commandes</a>
+      </li>
         <li class="nav-item" *ngIf="isLoggedIn()">
           <a class="nav-link" (click)="logout()">Déconnexion</a>
         </li>

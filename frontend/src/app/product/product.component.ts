@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService, Product } from '../product.service';
+import { CartService } from '../cart.service';
+import { AuthService } from '../auth.service';  // ✅ Import du AuthService
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';  // ✅ Import du module
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],  // ✅ Ajout de HttpClientModule ici
+  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
@@ -17,15 +19,21 @@ export class ProductComponent implements OnInit {
   isEditing: boolean = false;
   selectedProductId: number | null = null;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService,
+    private authService: AuthService  // ✅ Injection du AuthService
+  ) {}
 
   ngOnInit(): void {
     this.loadProducts();
-    console.log('ProductComponent chargé ✅');  // ✅ Vérifie que le composant se charge
-    }
+    console.log('ProductComponent chargé ✅');
+  }
 
   loadProducts(): void {
-    this.productService.getProducts().subscribe(data => this.products = data);
+    this.productService.getProducts().subscribe(data => {
+      this.products = data.map(product => ({ ...product, quantity: 1 })); // ✅ Ajout du champ quantity par défaut
+    });
   }
 
   addProduct(): void {
@@ -56,5 +64,21 @@ export class ProductComponent implements OnInit {
     this.newProduct = { name: '', description: '', price: 0, stock: 0, imageUrl: '' };
     this.isEditing = false;
     this.selectedProductId = null;
+  }
+
+  addToCart(product: Product, quantity: number): void {
+    const userId = this.authService.getUserId();  // ✅ Récupère l'ID de l'utilisateur connecté
+
+    if (!product.id) {
+      console.error('ID du produit manquant.');
+      return;
+    }
+
+    this.cartService.addToCart({
+      productId: product.id,
+      quantity: quantity || 1
+    }).subscribe(() => {
+      alert(`${quantity} x ${product.name} ajouté au panier.`);
+    });
   }
 }

@@ -4,20 +4,16 @@ import { Repository } from 'typeorm';
 import { Order } from './order.entity';
 import { OrderItem } from '../order-items/order-item.entity';
 import { Product } from 'src/product/product.entity';
-
-import { CartService } from 'src/cart/cart.service';  // ✅ Import du CartService
-
-
+import { CartService } from 'src/cart/cart.service';
 
 @Injectable()
 export class OrdersService {
   constructor(
-    @InjectRepository(Order) private orderRepository: Repository<Order>,          // ✅ Injection correcte
+    @InjectRepository(Order) private orderRepository: Repository<Order>,
     @InjectRepository(OrderItem) private orderItemRepository: Repository<OrderItem>,
     @InjectRepository(Product) private productRepository: Repository<Product>,
     private readonly cartService: CartService
   ) {}
-
 
   async validateOrder(userId: number) {
     const cartItems = await this.cartService.getCart(userId);
@@ -46,8 +42,16 @@ export class OrdersService {
       await this.orderItemRepository.save(orderItem);
     }
 
-    await this.cartService.clearCart(userId);  // ✅ Vider le panier après validation
+    await this.cartService.clearCart(userId);
 
     return this.orderRepository.findOne({ where: { id: order.id }, relations: ['items'] });
+  }
+
+  // ✅ Nouvelle méthode pour récupérer les commandes d'un utilisateur
+  async getOrdersByUser(userId: number) {
+    return this.orderRepository.find({
+      where: { userId },
+      relations: ['items', 'items.product']  // ✅ Inclure les détails des articles et des produits
+    });
   }
 }

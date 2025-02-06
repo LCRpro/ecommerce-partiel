@@ -1,0 +1,12 @@
+<h2>Votre Panier</h2>
+
+<div *ngFor="let item of cart" class="cart-item">  <!-- ✅ Utilisation correcte de *ngFor -->
+  <h4>{{ item.product.name }}</h4>
+  <p>Quantité : {{ item.quantity }}</p>
+  <p>Prix unitaire : {{ item.product.price }} €</p>
+  <p>Total : {{ item.quantity * item.product.price }} €</p>
+  <button (click)="removeFromCart(item.product.id)">Supprimer</button>
+</div>
+
+<button *ngIf="cart.length" (click)="validateOrder()">Valider la commande</button>  <!-- ✅ Utilisation correcte de *ngIf -->
+<p *ngIf="!cart.length">Votre panier est vide.</p>

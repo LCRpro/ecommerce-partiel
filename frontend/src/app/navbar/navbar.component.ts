@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,14 +11,17 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  constructor(private router: Router) {}
-
+  constructor(private router: Router,private authService: AuthService) {}
+  isAdmin(): boolean {
+    const role = localStorage.getItem('role');  // ✅ Vérifie le rôle stocké dans le localStorage
+    return role === 'admin';
+  }
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');  // ✅ Vérifie si l'utilisateur est connecté
   }
 
   logout(): void {
-    localStorage.removeItem('token');        // ✅ Suppression du token pour la déconnexion
-    this.router.navigate(['/login']);        // ✅ Redirection vers la page de login
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

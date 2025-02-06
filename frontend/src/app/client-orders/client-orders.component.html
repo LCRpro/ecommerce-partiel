@@ -1,0 +1,15 @@
+<h2>Mes Commandes</h2>
+
+<div *ngFor="let order of orders" class="order-card">  <!-- ✅ Utilisation de *ngFor -->
+  <h4>Commande #{{ order.id }}</h4>
+  <p>Statut : {{ order.status }}</p>
+  <p>Date de création : {{ order.createdAt | date:'short' }}</p>
+
+  <div *ngFor="let item of order.items">  <!-- ✅ Affichage des articles de la commande -->
+    <p>Produit : {{ item.product.name }} | Quantité : {{ item.quantity }} | Prix unitaire : {{ item.product.price }} €</p>
+  </div>
+
+  <hr>
+</div>
+
+<p *ngIf="!orders.length">Aucune commande trouvée.</p>  <!-- ✅ Message si pas de commandes -->
