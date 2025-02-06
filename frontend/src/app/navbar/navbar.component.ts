@@ -11,13 +11,14 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  constructor(private router: Router,private authService: AuthService) {}
-  isAdmin(): boolean {
-    const role = localStorage.getItem('role');  // ✅ Vérifie le rôle stocké dans le localStorage
-    return role === 'admin';
-  }
+  constructor(private router: Router, private authService: AuthService) {}
+
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');  // ✅ Vérifie si l'utilisateur est connecté
+    return this.authService.isLoggedIn();  // ✅ Vérifie la connexion via AuthService
+  }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin();  // ✅ Vérifie le rôle via AuthService
   }
 
   logout(): void {
