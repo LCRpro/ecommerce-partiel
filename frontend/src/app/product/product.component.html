@@ -1,0 +1,30 @@
+<div class="container">
+    <h1>Gestion des Produits</h1>
+  
+    <!-- Formulaire d'ajout / modification -->
+    <form (submit)="addProduct(); $event.preventDefault()" class="product-form">
+      <input type="text" placeholder="Nom" [(ngModel)]="newProduct.name" name="name" required>
+      <input type="text" placeholder="Description" [(ngModel)]="newProduct.description" name="description" required>
+      <input type="number" placeholder="Prix (€)" [(ngModel)]="newProduct.price" name="price" required>
+      <input type="number" placeholder="Stock" [(ngModel)]="newProduct.stock" name="stock" required>
+      <input type="text" placeholder="URL de l'image" [(ngModel)]="newProduct.imageUrl" name="imageUrl">
+  
+      <button type="submit">{{ isEditing ? 'Mettre à jour' : 'Ajouter' }}</button>
+      <button type="button" (click)="resetForm()" *ngIf="isEditing">Annuler</button>
+    </form>
+  
+    <!-- Liste des produits -->
+    <ul class="product-list">
+      <li *ngFor="let product of products" class="product-card">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <p><strong>Prix :</strong> {{ product.price }} €</p>
+        <p><strong>Stock :</strong> {{ product.stock }}</p>
+        <img [src]="product.imageUrl" alt="{{ product.name }}" width="150" *ngIf="product.imageUrl">
+  
+        <button (click)="editProduct(product)">Modifier</button>
+        <button (click)="deleteProduct(product.id!)">Supprimer</button>
+      </li>
+    </ul>
+  </div>
+  
