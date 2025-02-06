@@ -8,9 +8,15 @@
           <h4 class="card-title fw-bold text-primary">{{ product.name }} #{{ product.id }}</h4>
           <p class="card-text text-muted">{{ product.description }}</p>
           <p class="fs-5 text-success">Prix : {{ product.price }} €</p>
-          <input type="number" class="form-control mb-2" [(ngModel)]="product.quantity" min="1" [max]="product.stock" placeholder="Quantité" />
-          <button class="btn btn-success w-100" (click)="addToCart(product, product.quantity || 1)">Ajouter au panier</button>
+
+          <input *ngIf="isLoggedIn()" type="number" class="form-control mb-2" [(ngModel)]="product.quantity" min="1" [max]="product.stock" placeholder="Quantité" />
+
+          <!-- ✅ Affiche le bouton seulement si l'utilisateur est connecté -->
+          <button *ngIf="isLoggedIn()" class="btn btn-success w-100" (click)="addToCart(product, product.quantity || 1)">
+            Ajouter au panier
+          </button>
         </div>
+
         <div class="card-footer text-center bg-light rounded-bottom-4">
           <small class="text-muted">Disponible(s) : {{ product.stock }}</small>
         </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService, Product } from '../product.service';
 import { CartService } from '../cart.service';
-import { AuthService } from '../auth.service';  // ✅ Import du AuthService
+import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,7 +22,7 @@ export class ProductComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private authService: AuthService  // ✅ Injection du AuthService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -32,10 +32,14 @@ export class ProductComponent implements OnInit {
 
   loadProducts(): void {
     this.productService.getProducts().subscribe(data => {
-      this.products = data.map(product => ({ ...product, quantity: 1 })); // ✅ Ajout du champ quantity par défaut
+      this.products = data.map(product => ({ ...product, quantity: 1 }));
     });
   }
 
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();  // ✅ Vérifie la connexion
+  }
+  
   addProduct(): void {
     if (this.isEditing && this.selectedProductId !== null) {
       this.productService.updateProduct(this.selectedProductId, this.newProduct).subscribe(() => {
