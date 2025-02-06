@@ -26,11 +26,10 @@
           <a class="nav-link" routerLink="/client-orders">Mes Commandes</a>
         </li>
 
-        <!-- ✅ Visible uniquement si l'utilisateur est admin -->
-        <li class="nav-item" *ngIf="isLoggedIn() && isAdmin()">
-          <a class="nav-link" routerLink="/admin-orders">Gestion des Commandes</a>
+      
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a class="nav-link" routerLink="/admin-dashboard">Dashboard Admin</a>
         </li>
-
         <!-- ✅ Visible uniquement si l'utilisateur n'est PAS connecté -->
         <li class="nav-item" *ngIf="!isLoggedIn()">
           <a class="nav-link" routerLink="/login">Connexion</a>
@@ -38,7 +37,8 @@
         <li class="nav-item" *ngIf="!isLoggedIn()">
           <a class="nav-link" routerLink="/register">Inscription</a>
         </li>
-
+      
+        
         <!-- ✅ Déconnexion visible uniquement si connecté -->
         <li class="nav-item" *ngIf="isLoggedIn()">
           <a class="nav-link" (click)="logout()">Déconnexion</a>

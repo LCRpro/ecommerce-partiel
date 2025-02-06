@@ -12,6 +12,8 @@ import { CartComponent } from './app/cart/cart.component';
 import { ClientOrdersComponent } from './app/client-orders/client-orders.component';
 import { AdminOrdersComponent } from './app/admin-orders/admin-orders.component';
 import { FormsModule } from '@angular/forms';
+import { AdminDashboardComponent } from './app/admin-dashboard/admin-dashboard.component';
+
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -20,7 +22,7 @@ const routes: Routes = [
   { path: 'products', component: ProductComponent, canActivate: [AuthGuard] },  // ✅ Sécurisation des routes
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
   { path: 'client-orders', component: ClientOrdersComponent, canActivate: [AuthGuard] },
-  { path: 'admin-orders', component: AdminOrdersComponent, canActivate: [AuthGuard] }
+  { path: 'admin-dashboard', component: AdminDashboardComponent }  // ✅ Ajout de la route
 ];
 
 bootstrapApplication(AppComponent, {

@@ -1,0 +1,59 @@
+<h2>📦 Produits</h2>
+<!-- ✅ Affichage de l'erreur -->
+<div *ngIf="errorMessage" class="alert alert-danger mt-2">
+    {{ errorMessage }}
+  </div>
+  
+<!-- ✅ Formulaire d'ajout de produit -->
+<form (ngSubmit)="addProduct()" #productForm="ngForm">
+  <input type="text" [(ngModel)]="newProduct.name" name="name" placeholder="Nom du produit" required />
+  <input type="number" [(ngModel)]="newProduct.price" name="price" placeholder="Prix" required />
+  <input type="number" [(ngModel)]="newProduct.stock" name="stock" placeholder="Stock" required />
+  <input type="text" [(ngModel)]="newProduct.imageUrl" name="imageUrl" placeholder="URL de l'image" required /> <!-- ✅ Ajout de l'URL de l'image -->
+  <button type="submit">Ajouter le produit</button>
+</form>
+
+<ul *ngIf="products.length > 0; else noProducts">
+  <li *ngFor="let product of products">
+    <span *ngIf="!product.isEditing">
+      <img [src]="product.imageUrl" alt="Image produit" width="50" /> <!-- ✅ Affichage de l'image -->
+      {{ product.name }} - {{ product.price }} € - Stock: {{ product.stock }}
+      <button (click)="enableEdit(product)">✏️ Modifier</button>
+      <button (click)="deleteProduct(product.id)">🗑️ Supprimer</button>
+    </span>
+
+    <!-- ✅ Formulaire de modification -->
+    <span *ngIf="product.isEditing">
+      <input type="text" [(ngModel)]="product.name" name="editName" placeholder="Nom" required />
+      <input type="number" [(ngModel)]="product.price" name="editPrice" placeholder="Prix" required />
+      <input type="number" [(ngModel)]="product.stock" name="editStock" placeholder="Stock" required />
+      <input type="text" [(ngModel)]="product.imageUrl" name="editImageUrl" placeholder="URL de l'image" required /> <!-- ✅ Modification de l'URL de l'image -->
+      <button (click)="updateProduct(product)">💾 Enregistrer</button>
+      <button (click)="cancelEdit(product)">❌ Annuler</button>
+    </span>
+  </li>
+</ul>
+
+<ng-template #noProducts><p>Aucun produit disponible.</p></ng-template>
+
+<hr>
+
+<h2>📝 Commandes</h2>
+<ul *ngIf="orders.length > 0; else noOrders">
+  <li *ngFor="let order of orders">
+    Commande #{{ order.id }} - Statut : 
+    <select [(ngModel)]="order.status" (change)="updateStatus(order.id, order.status)">
+      <option value="En cours">En cours</option>
+      <option value="Expédiée">Expédiée</option>
+      <option value="Annulée">Annulée</option>
+    </select>
+    <br />
+    <strong>Articles :</strong>
+    <ul>
+      <li *ngFor="let item of order.items">
+        Produit ID : {{ item.productId }} - Quantité : {{ item.quantity }} - Prix : {{ item.price }} €
+      </li>
+    </ul>
+  </li>
+</ul>
+<ng-template #noOrders><p>Aucune commande disponible.</p></ng-template>

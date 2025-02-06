@@ -15,6 +15,7 @@ export class OrdersService {
     private readonly cartService: CartService
   ) {}
 
+  // ✅ Validation d'une commande
   async validateOrder(userId: number) {
     const cartItems = await this.cartService.getCart(userId);
     if (cartItems.length === 0) {
@@ -44,10 +45,21 @@ export class OrdersService {
 
     await this.cartService.clearCart(userId);
 
-    return this.orderRepository.findOne({ where: { id: order.id }, relations: ['items'] });
+    return this.orderRepository.findOne({
+      where: { id: order.id },
+      relations: ['items', 'items.product']  // ✅ Inclure les détails des produits
+    });
   }
 
-  // ✅ Nouvelle méthode pour récupérer les commandes d'un utilisateur
+  // ✅ Récupérer toutes les commandes
+  async getAllOrders() {
+    return this.orderRepository.find({
+      relations: ['items', 'items.product', 'user']  // ✅ Inclure l'utilisateur
+    });
+  }
+  
+
+  // ✅ Récupérer les commandes d'un utilisateur spécifique
   async getOrdersByUser(userId: number) {
     return this.orderRepository.find({
       where: { userId },

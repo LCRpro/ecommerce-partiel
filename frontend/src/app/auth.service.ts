@@ -24,6 +24,7 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.id || 0;
   }
+    
   // ✅ Vérifie si l'utilisateur est connecté
   isLoggedIn(): boolean {
     return !!localStorage.getItem('user');

@@ -15,4 +15,9 @@ export class OrdersController {
   async getOrdersByUser(@Param('userId') userId: number) {
     return this.ordersService.getOrdersByUser(userId);
   }
+
+  @Get('all')  // ✅ Route qui correspond à /orders/all
+  getAllOrders() {
+    return this.ordersService.getAllOrders();
+  }
 }
