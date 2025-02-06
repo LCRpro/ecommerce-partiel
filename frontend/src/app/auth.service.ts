@@ -20,7 +20,10 @@ export class AuthService {
     console.log('🔐 Connexion réussie :', user);
     localStorage.setItem('user', JSON.stringify(user));
   }
-
+  getUserId(): number {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.id || 0;
+  }
   // ✅ Vérifie si l'utilisateur est connecté
   isLoggedIn(): boolean {
     return !!localStorage.getItem('user');
