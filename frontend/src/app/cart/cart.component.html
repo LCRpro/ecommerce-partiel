@@ -1,12 +1,22 @@
-<h2>Votre Panier</h2>
+<div class="container mt-5">
 
-<div *ngFor="let item of cart" class="cart-item">  <!-- ✅ Utilisation correcte de *ngFor -->
-  <h4>{{ item.product.name }}</h4>
-  <p>Quantité : {{ item.quantity }}</p>
-  <p>Prix unitaire : {{ item.product.price }} €</p>
-  <p>Total : {{ item.quantity * item.product.price }} €</p>
-  <button (click)="removeFromCart(item.product.id)">Supprimer</button>
+
+  <h2 class="text-center mt-5">Votre Panier</h2>
+  <div *ngIf="cart.length; else emptyCart">
+    <div class="list-group mb-3">
+      <div *ngFor="let item of cart" class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="mb-1 text-primary">{{ item.product.name }}</h5>
+          <p class="mb-1">Quantité : <strong>{{ item.quantity }}</strong></p>
+          <p class="mb-1">Prix unitaire : {{ item.product.price }} €</p>
+          <p class="mb-1">Total : <strong>{{ item.quantity * item.product.price }} €</strong></p>
+        </div>
+        <button class="btn btn-danger btn-sm" (click)="removeFromCart(item.product.id)">Supprimer</button>
+      </div>
+    </div>
+    <button class="btn btn-primary w-100" (click)="validateOrder()">Valider la commande</button>
+  </div>
+  <ng-template #emptyCart>
+    <p class="text-center text-muted">Votre panier est vide.</p>
+  </ng-template>
 </div>
-
-<button *ngIf="cart.length" (click)="validateOrder()">Valider la commande</button>  <!-- ✅ Utilisation correcte de *ngIf -->
-<p *ngIf="!cart.length">Votre panier est vide.</p>
