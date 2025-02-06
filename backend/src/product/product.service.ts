@@ -4,11 +4,15 @@ import { Repository } from 'typeorm';
 import { Product } from './product.entity';
 
 @Injectable()
-export class ProductsService {
+export class ProductService {
   constructor(
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
   ) {}
+
+  create(product: Partial<Product>) {
+    return this.productRepository.save(product);
+  }
 
   findAll() {
     return this.productRepository.find();
@@ -18,12 +22,8 @@ export class ProductsService {
     return this.productRepository.findOneBy({ id });
   }
 
-  create(product: Partial<Product>) {
-    return this.productRepository.save(product);
-  }
-
-  update(id: number, product: Partial<Product>) {
-    return this.productRepository.update(id, product);
+  update(id: number, updateData: Partial<Product>) {
+    return this.productRepository.update(id, updateData);
   }
 
   remove(id: number) {
