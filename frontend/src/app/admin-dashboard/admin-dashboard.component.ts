@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Product, Order } from '../models/admin.model'; // ✅ Import des modèles
+import { NgChartsModule } from 'ng2-charts';
+import { ChartConfiguration, ChartType } from 'chart.js';
+
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgChartsModule],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
@@ -23,8 +26,33 @@ export class AdminDashboardComponent implements OnInit {
     imageUrl: '',
     description: ''
   };
+  chartType: ChartType = 'pie'; 
 
-  constructor(private adminService: AdminService) {}
+  chartData: ChartConfiguration['data'] = {
+    labels: [],
+    datasets: [
+      {
+        label: 'Ventes des produits',
+        data: [],
+        backgroundColor: [
+          '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+        ],
+        hoverOffset: 4
+      }
+    ]
+  };
+  showStats = false; // ✅ Contrôle de l'affichage des stats
+
+  chartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom'
+      }
+    }
+  };
+
+  constructor(private adminService: AdminService,private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.loadDashboardData();
@@ -35,11 +63,36 @@ export class AdminDashboardComponent implements OnInit {
       next: (data) => {
         this.products = data.products;
         this.orders = data.orders;
+        this.calculateProductSales();
+        this.changeDetectorRef.detectChanges();
       },
       error: (error) => {
         console.error('❌ Erreur lors de la récupération des données :', error);
       }
     });
+  }
+
+  calculateProductSales(): void {
+    const salesMap: { [key: string]: number } = {};
+
+    this.orders.forEach(order => {
+      order.items.forEach(item => {
+        const productName = this.products.find(p => p.id === item.productId)?.name || `Produit #${item.productId}`;
+        salesMap[productName] = (salesMap[productName] || 0) + item.quantity;
+      });
+    });
+
+    this.chartData.labels = Object.keys(salesMap);
+    this.chartData.datasets[0].data = Object.values(salesMap);
+
+    this.changeDetectorRef.detectChanges();
+  }
+
+  toggleStats(): void {
+    this.showStats = !this.showStats; // ✅ Inversion de l'état d'affichage
+    if (this.showStats) {
+      this.calculateProductSales(); // ✅ Mise à jour des données si nécessaire
+    }
   }
 
   // ✅ Ajouter un produit

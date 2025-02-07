@@ -7,7 +7,7 @@ RUN npm install -g @angular/cli
 
 # Copier les fichiers de configuration
 COPY package*.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copier le reste des fichiers
 COPY . .
