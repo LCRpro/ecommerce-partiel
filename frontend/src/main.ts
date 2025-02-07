@@ -10,7 +10,6 @@ import { IndexComponent } from './app/index/index.component';
 import { AuthGuard } from './app/auth/auth-guard.service';
 import { CartComponent } from './app/cart/cart.component';
 import { ClientOrdersComponent } from './app/client-orders/client-orders.component';
-import { AdminOrdersComponent } from './app/admin-orders/admin-orders.component';
 import { FormsModule } from '@angular/forms';
 import { AdminDashboardComponent } from './app/admin-dashboard/admin-dashboard.component';
 
@@ -22,8 +21,15 @@ const routes: Routes = [
   { path: 'products', component: ProductComponent, canActivate: [AuthGuard] },  // ✅ Sécurisation des routes
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
   { path: 'client-orders', component: ClientOrdersComponent, canActivate: [AuthGuard] },
-  { path: 'admin-dashboard', component: AdminDashboardComponent }  // ✅ Ajout de la route
-];
+  { 
+    path: 'admin-dashboard', 
+    component: AdminDashboardComponent, 
+    canActivate: [AuthGuard], 
+    data: { requiresAdmin: true } 
+  }
+  
+  
+  ];
 
 bootstrapApplication(AppComponent, {
   providers: [
