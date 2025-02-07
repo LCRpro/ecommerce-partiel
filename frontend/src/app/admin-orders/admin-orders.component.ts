@@ -22,7 +22,7 @@ export class AdminOrdersComponent implements OnInit {
   loadOrders(): void {
     this.orderService.getAllOrders().subscribe({
       next: (data) => {
-        console.log('✅ Commandes récupérées :', data);  // ✅ Log pour vérifier les données
+       // console.log('✅ Commandes récupérées :', data);  
         this.orders = data;
       },
       error: (err) => {

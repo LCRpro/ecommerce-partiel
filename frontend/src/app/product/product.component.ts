@@ -27,7 +27,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts();
-    console.log('ProductComponent chargé ✅');
+  //  console.log('ProductComponent chargé ✅');
   }
 
   loadProducts(): void {

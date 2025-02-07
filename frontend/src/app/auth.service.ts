@@ -17,7 +17,7 @@ export class AuthService {
 
   // ✅ Stockage des informations de l'utilisateur dans le localStorage
   storeUser(user: any) {
-    console.log('🔐 Connexion réussie :', user);
+    // console.log('🔐 Connexion réussie :', user);
     localStorage.setItem('user', JSON.stringify(user));
   }
   getUserId(): number {

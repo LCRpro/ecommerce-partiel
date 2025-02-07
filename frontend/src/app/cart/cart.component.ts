@@ -21,7 +21,7 @@ export class CartComponent implements OnInit {
   loadCart(): void {
     this.cartService.getCart().subscribe({
       next: (data) => {
-        console.log('✅ Données du panier récupérées:', data);
+      //  console.log('✅ Données du panier récupérées:', data);
         this.cart = data;
       },
       error: (err) => {

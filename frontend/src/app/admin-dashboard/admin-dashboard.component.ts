@@ -115,7 +115,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   updateProduct(product: Product): void {
-    console.log('🔄 Données du produit à mettre à jour :', product);  // ✅ Debug
+    // console.log('🔄 Données du produit à mettre à jour :', product);  
     this.adminService.updateProduct(product.id, product).subscribe({
       next: () => {
         product.isEditing = false;

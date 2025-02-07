@@ -21,10 +21,10 @@ export class ClientOrdersComponent implements OnInit {
 
   loadOrders(): void {
     const userId = this.authService.getUserId();  // ✅ Récupération de l'ID utilisateur
-    console.log('🔍 Récupération des commandes pour l\'utilisateur ID:', userId);  // ✅ Log pour le debug
+ //   console.log('🔍 Récupération des commandes pour l\'utilisateur ID:', userId);   ✅ Log pour le debug
     this.orderService.getOrdersByUser(userId).subscribe({
       next: (data) => {
-        console.log('✅ Commandes récupérées:', data);  // ✅ Vérification des données
+     //   console.log('✅ Commandes récupérées:', data);  // ✅ Vérification des données
         this.orders = data;
       },
       error: (err) => {

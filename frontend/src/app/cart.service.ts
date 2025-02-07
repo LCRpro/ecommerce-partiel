@@ -13,7 +13,7 @@ export class CartService {
 
   getCart(): Observable<any> {
     const userId = this.authService.getUserId();
-    console.log('🔍 Récupération du panier pour l\'utilisateur ID:', userId);  // ✅ Log ajouté
+    // console.log('🔍 Récupération du panier pour l\'utilisateur ID:', userId);  
     return this.http.get(`${this.apiUrl}/${userId}`);
   }
 
